@@ -4,6 +4,8 @@
  */
 package Model;
 
+import java.util.logging.Logger;
+
 /**
  *
  * @author menab
@@ -15,6 +17,19 @@ public class Cuenta {
     private double fondosReales;
     private double saldo;
     private String password;
+    private boolean primerLogin;
+
+    public double getFondosReales() {
+        return fondosReales;
+    }
+
+    public boolean isPrimerLogin() {
+        return primerLogin;
+    }
+    
+    public void setPrimerLogin(boolean primerLogin) {
+        this.primerLogin = primerLogin;
+    }   
 
     public String getTitular() {
         return titular;
@@ -35,15 +50,15 @@ public class Cuenta {
     public double getSaldo() {
         return saldo;
     }
-    
+
     public void sumarfondos() {
-        fondosReales +=  saldo;
+        fondosReales += saldo;
     }
 
     public void depositar(double saldo) {
         this.saldo += saldo;
     }
-    
+
     public void retirar(double saldo) {
         if (this.fondosReales - saldo >= 0) {
             this.fondosReales -= saldo;
@@ -55,13 +70,32 @@ public class Cuenta {
     }
 
     public void setPassword(String password) {
-        verificarPassword(password);
+        if (verificarPassword(password)) {
+            this.password = password;
+        }
     }
 
-    private void verificarPassword(String password) {
-//        Al menos una mayúscula y una minúscula.
-//        Al menos contenga 4 números.
-//        Que los números y letras no sean consecutivos.
-//        El tamaño total de la contraseña al menos deberá ser de 8 caracteres
+    private boolean verificarPassword(String password) {
+        // Al menos una mayúscula y una minúscula
+        if (!password.matches(".*[A-Z].*") || !password.matches(".*[a-z].*")) {
+            return false;
+        }
+
+        // Al menos 4 números
+        if (!password.matches(".*\\d{4,}.*")) {
+            return false;
+        }
+
+        // Los números y letras no deben ser consecutivos
+        if (password.matches(".*[a-zA-Z0-9]{3,}.*")) {
+            return false;
+        }
+
+        // El tamaño total de la contraseña debe ser al menos de 8 caracteres
+        if (password.length() < 8) {
+            return false;
+        }
+
+        return true;
     }
 }
