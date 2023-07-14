@@ -48,6 +48,7 @@ public class CajeroView extends javax.swing.JFrame {
         BtnRetiro = new javax.swing.JButton();
         BtnDeposito = new javax.swing.JButton();
         BtnSalir = new javax.swing.JButton();
+        LbFondos = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(102, 102, 102));
@@ -100,6 +101,10 @@ public class CajeroView extends javax.swing.JFrame {
             }
         });
 
+        LbFondos.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 14)); // NOI18N
+        LbFondos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        LbFondos.setText("Fondos");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -114,7 +119,8 @@ public class CajeroView extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(BtnRetiro, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(BtnSalir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(BtnDeposito, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE))))
+                            .addComponent(BtnDeposito, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
+                            .addComponent(LbFondos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -126,6 +132,8 @@ public class CajeroView extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(LbFondos, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(BtnDeposito, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(3, 3, 3)
                         .addComponent(BtnRetiro, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -158,7 +166,10 @@ public class CajeroView extends javax.swing.JFrame {
         try {
             agregarLinea("Realizando Retiro");
             double monto = Double.parseDouble(JOptionPane.showInputDialog(this, "Ingrese Monto a Retirar"));
-            logeado.depositar(monto);
+            if (logeado.retirar(monto)) {
+                agregarLinea("Fondos insuficuientes");
+                return;
+            }
             agregarLinea("Retiro realizado por: "+monto);
             
         } catch (NumberFormatException e) {
@@ -215,11 +226,15 @@ public class CajeroView extends javax.swing.JFrame {
     private  void agregarLinea(String line){
         this.TxtPantalla.setText(TxtPantalla.getText()+"\n"+line);
     }
+    private void actualizar(){
+        this.LbFondos.setText(String.valueOf(logeado.getFondosReales()));
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnDeposito;
     private javax.swing.JButton BtnRetiro;
     private javax.swing.JButton BtnSalir;
+    protected javax.swing.JLabel LbFondos;
     protected javax.swing.JLabel LbNombre;
     private javax.swing.JTextArea TxtPantalla;
     private javax.swing.JPanel jPanel1;

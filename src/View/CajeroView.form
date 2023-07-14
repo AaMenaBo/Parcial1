@@ -36,7 +36,8 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="BtnRetiro" alignment="1" max="32767" attributes="0"/>
                           <Component id="BtnSalir" alignment="1" max="32767" attributes="0"/>
-                          <Component id="BtnDeposito" pref="129" max="32767" attributes="0"/>
+                          <Component id="BtnDeposito" pref="171" max="32767" attributes="0"/>
+                          <Component id="LbFondos" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -53,6 +54,8 @@
               <Group type="103" groupAlignment="1" attributes="0">
                   <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
                   <Group type="102" attributes="0">
+                      <Component id="LbFondos" min="-2" pref="58" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="BtnDeposito" min="-2" pref="55" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
                       <Component id="BtnRetiro" min="-2" pref="55" max="-2" attributes="0"/>
@@ -151,6 +154,18 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BtnSalirActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="LbFondos">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Microsoft YaHei UI" size="14" style="1"/>
+        </Property>
+        <Property name="horizontalAlignment" type="int" value="0"/>
+        <Property name="text" type="java.lang.String" value="Fondos"/>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="4"/>
+      </AuxValues>
     </Component>
   </SubComponents>
 </Form>
